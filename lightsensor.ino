@@ -5,7 +5,7 @@
 XBee xbee = XBee();
 uint8_t data[5];
 
-XBeeAddress64 addr64 = XBeeAddress64(0x0013A200, 0x414EA6F0);
+XBeeAddress64 addr64 = XBeeAddress64(0x0013A200, 0x414EA67F);
 ZBExplicitTxRequest zbTx = ZBExplicitTxRequest(addr64, data, sizeof(data));
 
 void setup() {
