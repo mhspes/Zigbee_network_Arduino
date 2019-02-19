@@ -2,7 +2,7 @@
 
 XBee xbee = XBee();
 XBeeResponse response = XBeeResponse();
-ZBExplicitRxResponse rx = ZBExplicitRxResponse(); // Define object for the packet
+ZBRxResponse rx = ZBRxResponse(); // Define object for the received packet
 
 void setup() {
   Serial.begin(9600);
@@ -10,17 +10,20 @@ void setup() {
 }
 
 void loop() {
+  
     xbee.readPacket();
     if (xbee.getResponse().isAvailable()) {
       // got some packet
-      if (xbee.getResponse().getApiId() == ZB_EXPLICIT_RX_RESPONSE){ 
-        // Got packet with 64-bit address
+      if (xbee.getResponse().getApiId() == ZB_RX_RESPONSE){ 
+        // Got packet with 64-bit address (API frame 0x90)
+        
         xbee.getResponse().getZBRxResponse(rx);
         uint8_t sensor_data[rx.getDataLength()];
 
         Serial.print("Received reading: ");
-
-        // Print out the received data
+        
+        // Print out the received data in correct format
+        // xx.xxx
         for (int i =rx.getDataLength()-1; i >= 0;i--){
           sensor_data[i] = rx.getData(i);
           Serial.print(sensor_data[i]);
@@ -30,7 +33,7 @@ void loop() {
           }
           Serial.print("\n");
       } else {
-        Serial.println("Not a 64-bit addressed packet.");
+        Serial.println("Received an unexpected frame.");
       }
           
     } else {
