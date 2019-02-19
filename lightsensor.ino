@@ -5,7 +5,7 @@
 XBee xbee = XBee();
 uint8_t data[5]; // 5 bytes of data for sensor reading
 
-XBeeAddress64 addr64 = XBeeAddress64(0x0013A200, 0x414EA6F0); // Address of the router
+XBeeAddress64 addr64 = XBeeAddress64(0x0013A200, 0x414EA67F); // Address of the router
 ZBExplicitTxRequest zbTx = ZBExplicitTxRequest(addr64, data, sizeof(data)); // Create the frame
 
 void setup() {
